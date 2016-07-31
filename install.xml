@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>getSale Modification</name>
+    <code>getsale modification</code>
+    <version>1.0.0</version>
+    <author>getSale Team</author>
+    <link>http://getsale.io/</link>
+
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search>
+                <![CDATA[$data['title'] = $this->document->getTitle();]]></search>
+            <add position="after">
+                <![CDATA[$data['getsale_code'] = $this->load->controller('module/getsale');]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/common/header.tpl">
+        <operation>
+            <search>
+                <![CDATA[<body class="<?php echo $class; ?>">]]></search>
+            <add position="after">
+                <![CDATA[<?php echo $getsale_code; ?>]]></add>
+        </operation>
+    </file>
+
+</modification>
