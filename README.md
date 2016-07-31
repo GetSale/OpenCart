@@ -19,7 +19,8 @@ License: GNU General Public License, version 3
 
 ## Установка вручную
 - Распакуйте содержимое папки upload в корень сайта OpenCart;
-- В разделе *Extensions - Extension Installer* (*Модули - Установка расширений*) установите модификатор модуля install.ocmod.xml;
+- Переименуйте файл install.xml в getsale.ocmod.xml;
+- В разделе *Extensions - Extension Installer* (*Модули - Установка расширений*) установите модификатор модуля getsale.ocmod.xml;
 - Установите и включите модификатор модуля в разделе *Extensions - Modifications* (*Модули - Модификации*) *getsale modification*.
 - Обновите кэш модификаций, чтобы они вступили в силу (в верхнем правом углу *Refresh* или *Обновить*).
 - Установите и включите модуль в разделе *Extensions - Мodules* (*Модули - Модули*).
