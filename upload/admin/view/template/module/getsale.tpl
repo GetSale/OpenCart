@@ -30,7 +30,7 @@
             if ($getsale_id) { ?>
         <div class="alert alert-success">
             <i class="fa fa-exclamation-circle"></i> Поздравляем! Ваш сайт успешно привязан к
-            аккаунту <a href="http://getsale.io" target="_blank">getSale.io</a>.
+            аккаунту <a href="http://getsale.io" target="_blank">GetSale</a>.
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
         <?php } ?>
@@ -40,9 +40,13 @@
                 <h3 class="panel-title"><i class="fa fa-pencil"></i><?php echo $text_edit; ?></h3>
             </div>
             <div class="panel-body">
-                <p><b>getSale</b> — профессиональный инструмент для создания popup-окон.</p>
+                <p><b>GetSale</b> &mdash; профессиональный инструмент для создания popup-окон.</p>
 
-                <p>Оцените принципиально новый подход к созданию popup-окон.</p>
+                <p>GetSale поможет вашему сайту нарастить контактную базу лояльных клиентов, информировать посетителей
+                    о предстоящих акциях, распродажах, раздавать промокоды, скидки и многое другое, что напрямую
+                    повлияет на конверсии покупателей и рост продаж. Для новичков доступны десятки предустановленных
+                    дизайнов, а профессионалам многофункциональный конструктор позволит реализовать практически любой
+                    дизайн, настроив его на самые нужные сегменты посетителей и их действия.</p>
                 <hr>
 
                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data"
@@ -100,27 +104,27 @@
             </form>
             <?php if (!$getsale_id) { ?>
             <div class="help_msg">
-                <p>Введите email и ключ API из личного кабинета <a href="http://getsale.io"
-                                                                   target="_blank">getSale.io</a>
+                <p>Введите Email и ключ API из личного кабинета <a href="http://getsale.io"
+                                                                   target="_blank">GetSale</a>
                 </p>
 
-                <p>Если вы ещё не зарегистрировались в сервисе getSale это можно сделать по ссылке
-                    <a href="http://getsale.io" target="_blank">getSale.io</a></p>
+                <p>Если вы ещё не зарегистрировались в сервисе GetSale это можно сделать по ссылке
+                    <a href="http://getsale.io" target="_blank">GetSale</a></p>
             </div>
             <?php } ?>
             <hr>
             <div class="help_succ_msg" style="display: none;">
-                <p><?php echo $succ_mess1;?> <a href="http://getsale.io" target="_blank">getSale.io</a> <? echo $succ_mess2;?>
+                <p><?php echo $succ_mess1;?> <a href="http://getsale.io" target="_blank">GetSale</a> <? echo $succ_mess2;?>
                 </p>
             </div>
             <?php if ($getsale_id) {
                echo "<p>";
-            echo $succ_mess1;?> <a href="http://getsale.io" target="_blank">getSale.io</a> <? echo $succ_mess2;
+            echo $succ_mess1;?> <a href="http://getsale.io" target="_blank">GetSale</a> <? echo $succ_mess2;
                echo "</p>";
             }
             echo '<p>';
-            echo $tech_support;?> <a href="mailto:plugins@getsale.io">plugins@getsale.io</a></p>
-            <p>OpenCart getSale ver.<?php echo $ver;?></p>
+            echo $tech_support;?> <a href="mailto:support@getsale.io">support@getsale.io</a></p>
+            <p>Opencart GetSale ver.<?php echo $ver;?></p>
         </div>
     </div>
 </div>

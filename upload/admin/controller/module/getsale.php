@@ -1,15 +1,15 @@
 <?php
 
 /**
- * 2016 getSale
- * @author    getSale <http://getsale.io/>
- * @copyright 2016 getSale
+ * 2016 GetSale
+ * @author    GetSale Team <http://getsale.io/>
+ * @copyright 2016 GetSale
  * @license   GNU General Public License, version 3
  */
 class ControllerModuleGetsale extends Controller
 {
     private $error = array();
-    private $name = "getsale";
+    private $name = "GetSale";
     private $ver = '1.0.0';
 
     public function index()
@@ -159,7 +159,7 @@ class ControllerModuleGetsale extends Controller
             if (($json_result->status == 'OK') && (isset($json_result->payload))) {
                 if (isset($json_result->payload->projectId)) {
                     $this->request->post['getsale_id'] = $json_result->payload->projectId;
-                    $this->request->post['getsale_code'] = trim(htmlspecialchars($this->gtsl_code($json_result->payload->projectId)));
+                    $this->request->post['getsale_code'] = trim(htmlspecialchars($this->intrg_code($json_result->payload->projectId)));
                     $this->request->post['getsale_email'] = $email;
                     $this->request->post['getsale_key'] = $key;
                 }
@@ -172,7 +172,7 @@ class ControllerModuleGetsale extends Controller
         return !$this->error;
     }
 
-    public static function gtsl_code($project_id)
+    public static function intrg_code($project_id)
     {
         return "<!-- GETSALE CODE START -->
 		  <script type='text/javascript'>

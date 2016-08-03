@@ -1,10 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-    <name>getSale Modification</name>
+    <name>GetSale Modification</name>
     <code>getsale modification</code>
     <version>1.0.0</version>
-    <author>getSale Team</author>
+    <author>GetSale Team</author>
     <link>http://getsale.io/</link>
+
+    <file path="catalog/controller/checkout/cart.php">
+        <operation>
+            <search>
+                <![CDATA[$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));]]></search>
+            <add position="after">
+                <![CDATA[$json['success'] .= "<script type=\"text/javascript\">getSale.event('add-to-cart');console.log('add-to-cart');</script>";]]></add>
+        </operation>
+        <operation>
+            <search index="1">
+                <![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total));]]></search>
+            <add position="after">
+                <![CDATA[$json['total'] .= "<script type=\"text/javascript\">getSale.event('del-from-cart'); console.log('del-from-cart');</script>";]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/product/category.tpl">
+        <operation>
+            <search><![CDATA[<div class="container">]]></search>
+            <add position="after"><![CDATA[<script type="text/javascript">
+            (function(w, c) {
+                w[c] = w[c] || [];
+                w[c].push(function(getSale) {
+                getSale.event('cat-view');
+            });
+        })(window, 'getSaleCallbacks');
+        console.log('cat-view');
+        </script>]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/checkout/checkout.tpl">
+        <operation>
+            <search>
+                <![CDATA[var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').prop('value');]]></search>
+            <add position="before" offset="1">
+                <![CDATA[getSale.event('user-reg'); console.log('user-reg');]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/product/product.tpl">
+        <operation>
+            <search><![CDATA[<div class="container">]]></search>
+            <add position="after"><![CDATA[<script>
+			(function(w, c) {
+    w[c] = w[c] || [];
+    w[c].push(function(getSale) {
+        getSale.event('item-view');
+    });
+})(window, 'getSaleCallbacks');
+console.log('item-view');
+</script>]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/checkout/register.php">
+        <operation>
+            <search>
+                <![CDATA[$data['button_upload'] = $this->language->get('button_upload');]]></search>
+            <add position="before">
+                <![CDATA[$data['getsale_script'] = "<script>(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('user-reg'); console.log('user-reg');});})(window, 'getSaleCallbacks');</script>";]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/checkout/success.php">
+        <operation>
+            <search>
+                <![CDATA[$data['button_continue'] = $this->language->get('button_continue');]]></search>
+            <add position="after">
+                <![CDATA[$data['button_continue'] .= "<script>(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('success-order'); console.log('success-order');});})(window, 'getSaleCallbacks');</script>";]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/account/success.php">
+        <operation>
+            <search>
+                <![CDATA[$data['button_continue'] = $this->language->get('button_continue');]]></search>
+            <add position="after">
+                <![CDATA[$data['button_continue'] .= "<script>(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('user-reg'); console.log('user-reg');});})(window, 'getSaleCallbacks');</script>";]]></add>
+        </operation>
+    </file>
 
     <file path="catalog/controller/common/header.php">
         <operation>
