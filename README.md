@@ -1,4 +1,4 @@
-#getSale
+#GetSale
 
 Tags: getsale, popup, popups  
 Requires at least: 2.0.3.1 (rs.2)  
