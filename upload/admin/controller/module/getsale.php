@@ -175,25 +175,41 @@ class ControllerModuleGetsale extends Controller
     public static function getsale_code($project_id)
     {
         return "<!-- GETSALE CODE START -->
-		  <script type='text/javascript'>
-			(function(d, w, c) {
-			  w[c] = {
-				projectId: " . $project_id . "
-			  };
+<script type='text/javascript'>
+(function(d, w, c) {
+    w[c] = {
+        projectId: " . $project_id . "
+    };
+    var n = d.getElementsByTagName('script')[0],
+    s = d.createElement('script'),
+    f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//rt.getsale.io/loader.js';
+    if (w.opera == '[object Opera]') {
+        d.addEventListener('DOMContentLoaded', f, false);
+    } else { f(); }
+})(document, window, 'getSaleInit');
 
-			  var n = d.getElementsByTagName('script')[0],
-			  s = d.createElement('script'),
-			  f = function () { n.parentNode.insertBefore(s, n); };
-			  s.type = 'text/javascript';
-			  s.async = true;
-			  s.src = '//rt.getsale.io/loader.js';
+function getsalegetCookie(name) {
+    var matches = document.cookie.match(new RegExp(\"(?:^|; )\" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + \"=([^;]*)\"));
+    return matches ? decodeURIComponent(matches[1]) : 'N';
+}
 
-			  if (w.opera == '[object Opera]') {
-				  d.addEventListener('DOMContentLoaded', f, false);
-			  } else { f(); }
-
-			})(document, window, 'getSaleInit');
-			</script>
-		<!-- GETSALE CODE END -->";
+var getsale_del = getsalegetCookie('GETSALE_DEL');
+if (getsale_del && getsale_del == 'Y') {
+    (function (w, c) {
+        w[c] = w[c] || [];
+        w[c].push(function (getSale) {
+            getSale.event('del-from-cart');
+            console.log('del-from-cart');
+        });
+    })(window, 'getSaleCallbacks');
+    document.cookie = 'GETSALE_DEL=N; path=/;';
+} else {
+    document.cookie = 'GETSALE_DEL=N; path=/;';
+}
+</script>
+<!-- GETSALE CODE END -->";
     }
 }
