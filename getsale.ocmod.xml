@@ -96,7 +96,21 @@ console.log('item-view');
             <search>
                 <![CDATA[<body class="<?php echo $class; ?>">]]></search>
             <add position="after">
-                <![CDATA[<?php echo $getsale_code; ?>]]></add>
+                <![CDATA[<?php echo $getsale_code; ?>
+                <script>
+function getsalegetCookie(name) {
+    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '$1') + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : 'N';
+}
+var getsale_del = getsalegetCookie('GETSALE_DEL');
+if (getsale_del && getsale_del == 'Y') {
+    getSale.event('del-from-cart');
+    console.log('del-from-cart');
+    document.cookie = 'GETSALE_DEL=N; path=/;';
+} else {
+    document.cookie = 'GETSALE_DEL=N; path=/;';
+}
+</script>]]></add>
         </operation>
     </file>
 </modification>

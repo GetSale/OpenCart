@@ -190,25 +190,6 @@ class ControllerModuleGetsale extends Controller
         d.addEventListener('DOMContentLoaded', f, false);
     } else { f(); }
 })(document, window, 'getSaleInit');
-
-function getsalegetCookie(name) {
-    var matches = document.cookie.match(new RegExp(\"(?:^|; )\" + name.replace(/([.$?*|{}()[]\/+^])/g, '\$1') + \"=([^;]*)\"));
-    return matches ? decodeURIComponent(matches[1]) : 'N';
-}
-
-var getsale_del = getsalegetCookie('GETSALE_DEL');
-if (getsale_del && getsale_del == 'Y') {
-    (function (w, c) {
-        w[c] = w[c] || [];
-        w[c].push(function (getSale) {
-            getSale.event('del-from-cart');
-            console.log('del-from-cart');
-        });
-    })(window, 'getSaleCallbacks');
-    document.cookie = 'GETSALE_DEL=N; path=/;';
-} else {
-    document.cookie = 'GETSALE_DEL=N; path=/;';
-}
 </script>
 <!-- GETSALE CODE END -->";
     }
