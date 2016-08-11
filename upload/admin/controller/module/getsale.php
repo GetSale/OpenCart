@@ -118,7 +118,7 @@ class ControllerModuleGetsale extends Controller
 
         $this->load->language('module/getsale');
 
-        $domain = 'http://edge.getsale.io';
+        $domain = 'https://getsale.io';
 
         if (isset($this->request->post['getsale_key'])) {
             $key = $this->request->post['getsale_key'];
@@ -186,7 +186,7 @@ class ControllerModuleGetsale extends Controller
 			  f = function () { n.parentNode.insertBefore(s, n); };
 			  s.type = 'text/javascript';
 			  s.async = true;
-			  s.src = '//rt.edge.getsale.io/loader.js';
+			  s.src = '//rt.getsale.io/loader.js';
 
 			  if (w.opera == '[object Opera]') {
 				  d.addEventListener('DOMContentLoaded', f, false);

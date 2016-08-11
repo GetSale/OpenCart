@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
     <name>GetSale Modification</name>
-    <code>getsale modification</code>
+    <code>getsale_modification</code>
     <version>1.0.0</version>
     <author>GetSale Team</author>
-    <link>http://getsale.io/</link>
-
+    <link>https://getsale.io/</link>
     <file path="catalog/controller/checkout/cart.php">
         <operation>
             <search>
@@ -20,7 +19,6 @@
                 <![CDATA[$json['total'] .= "<script type=\"text/javascript\">getSale.event('del-from-cart'); console.log('del-from-cart');</script>";]]></add>
         </operation>
     </file>
-
     <file path="catalog/view/theme/*/template/product/category.tpl">
         <operation>
             <search><![CDATA[<div class="container">]]></search>
@@ -35,7 +33,6 @@
         </script>]]></add>
         </operation>
     </file>
-
     <file path="catalog/view/theme/*/template/checkout/checkout.tpl">
         <operation>
             <search>
@@ -44,7 +41,6 @@
                 <![CDATA[getSale.event('user-reg'); console.log('user-reg');]]></add>
         </operation>
     </file>
-
     <file path="catalog/view/theme/*/template/product/product.tpl">
         <operation>
             <search><![CDATA[<div class="container">]]></search>
@@ -59,7 +55,6 @@ console.log('item-view');
 </script>]]></add>
         </operation>
     </file>
-
     <file path="catalog/controller/checkout/register.php">
         <operation>
             <search>
@@ -104,5 +99,4 @@ console.log('item-view');
                 <![CDATA[<?php echo $getsale_code; ?>]]></add>
         </operation>
     </file>
-
 </modification>
