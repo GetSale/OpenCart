@@ -193,7 +193,6 @@ class ControllerModuleGetsale extends Controller
 			  } else { f(); }
 
 			})(document, window, 'getSaleInit');
-			console.log('script');
 			</script>
 		<!-- GETSALE CODE END -->";
     }
