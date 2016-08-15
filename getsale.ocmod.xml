@@ -16,7 +16,7 @@
             <search index="1">
                 <![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total));]]></search>
             <add position="after">
-                <![CDATA[$json['total'] .= "<script type='text/javascript'>document.cookie = 'GETSALE_DEL = Y; path =/;';</script>";]]></add>
+                <![CDATA[$json['total'] .= "<script type='text/javascript'>alert('delete'); document.cookie='GETSALE_DEL=Y; path =/;';</script>";]]></add>
         </operation>
     </file>
     <file path="catalog/view/theme/*/template/product/category.tpl">
@@ -45,7 +45,7 @@
         <operation>
             <search><![CDATA[<div class="container">]]></search>
             <add position="after"><![CDATA[<script>
-			(function(w, c) {
+(function(w, c) {
     w[c] = w[c] || [];
     w[c].push(function(getSale) {
         getSale.event('item-view');
@@ -100,15 +100,19 @@ console.log('item-view');
 <script type = 'text/javascript'>
 $(document).ready(function() {
 function getsalegetCookie(name) {
-    var matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[]\/+^])/g, '$1') + '=([^;]*)'));
+    var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[]\/+^])/g, '$1') + "=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : 'N';
 }
 var getsale_del = getsalegetCookie('GETSALE_DEL');
+console.log(getsale_del);
 if (getsale_del && getsale_del == 'Y') {
-    getSale.event('del-from-cart');
-    console.log('del-from-cart');
-    document.cookie = 'GETSALE_DEL=N; path=/;';
-} else {
+    (function(w, c) {
+        w[c] = w[c] || [];
+        w[c].push(function(getSale) {
+            getSale.event('del-from-cart');
+            console.log('del-from-cart');
+        });
+    })(window, 'getSaleCallbacks');
     document.cookie = 'GETSALE_DEL=N; path=/;';
 }
 });
