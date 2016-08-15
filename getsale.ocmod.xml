@@ -14,9 +14,15 @@
         </operation>
         <operation>
             <search index="1">
+                <![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));]]></search>
+            <add position="after">
+                <![CDATA[$json['total'] .= "<script type='text/javascript'>document.cookie='GETSALE_DEL=Y; path =/;';</script>";]]></add>
+        </operation>
+        <operation>
+            <search index="1">
                 <![CDATA[$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total));]]></search>
             <add position="after">
-                <![CDATA[$json['total'] .= "<script type='text/javascript'>alert('delete'); document.cookie='GETSALE_DEL=Y; path =/;';</script>";]]></add>
+                <![CDATA[$json['total'] .= "<script type='text/javascript'>document.cookie='GETSALE_DEL=Y; path =/;';</script>";]]></add>
         </operation>
     </file>
     <file path="catalog/view/theme/*/template/product/category.tpl">
@@ -104,7 +110,6 @@ function getsalegetCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : 'N';
 }
 var getsale_del = getsalegetCookie('GETSALE_DEL');
-console.log(getsale_del);
 if (getsale_del && getsale_del == 'Y') {
     (function(w, c) {
         w[c] = w[c] || [];
