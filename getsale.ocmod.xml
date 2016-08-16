@@ -10,7 +10,12 @@
             <search>
                 <![CDATA[$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));]]></search>
             <add position="after">
-                <![CDATA[$json['success'] .= "<script type=\"text/javascript\">getSale.event('add-to-cart');console.log('add-to-cart');</script>";]]></add>
+                <![CDATA[$json['success'] .= "<script>if(window.getSale){
+                    getSale.event('add-to-cart'); console.log('add-to-cart');
+                } else {
+                    (function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('add-to-cart'); console.log('add-to-cart');});})(window, 'getSaleCallbacks');
+                }
+                </script>";]]></add>
         </operation>
         <operation>
             <search index="1">
