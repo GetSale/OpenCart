@@ -10,12 +10,7 @@
             <search>
                 <![CDATA[$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));]]></search>
             <add position="after">
-                <![CDATA[$json['success'] .= "<script>if(window.getSale){
-                    getSale.event('add-to-cart'); console.log('add-to-cart');
-                } else {
-                    (function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('add-to-cart'); console.log('add-to-cart');});})(window, 'getSaleCallbacks');
-                }
-                </script>";]]></add>
+                <![CDATA[$json['success'] .= "<script type='text/javascript'>document.cookie='GETSALE_ADD=Y; path =/;'; console.log('cookie-add-to-cart');</script>";]]></add>
         </operation>
         <operation>
             <search index="1">
@@ -33,15 +28,7 @@
     <file path="catalog/view/theme/*/template/product/category.tpl">
         <operation>
             <search><![CDATA[<div class="container">]]></search>
-            <add position="after"><![CDATA[<script type="text/javascript">
-            (function(w, c) {
-                w[c] = w[c] || [];
-                w[c].push(function(getSale) {
-                getSale.event('cat-view');
-            });
-        })(window, 'getSaleCallbacks');
-        console.log('cat-view');
-        </script>]]></add>
+            <add position="after"><![CDATA[<script type="text/javascript">(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('cat-view');console.log('cat-view');});})(window, 'getSaleCallbacks');</script>]]></add>
         </operation>
     </file>
     <file path="catalog/view/theme/*/template/checkout/checkout.tpl">
@@ -49,7 +36,7 @@
             <search>
                 <![CDATA[var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').prop('value');]]></search>
             <add position="before" offset="1">
-                <![CDATA[getSale.event('user-reg'); console.log('user-reg');]]></add>
+                <![CDATA[(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('user-reg'); console.log('user-reg');});})(window, 'getSaleCallbacks');]]></add>
         </operation>
     </file>
     <file path="catalog/view/theme/*/template/product/product.tpl">
@@ -60,9 +47,9 @@
     w[c] = w[c] || [];
     w[c].push(function(getSale) {
         getSale.event('item-view');
+        console.log('item-view');
     });
 })(window, 'getSaleCallbacks');
-console.log('item-view');
 </script>]]></add>
         </operation>
     </file>
@@ -116,15 +103,26 @@ function getsalegetCookie(name) {
 }
 var getsale_del = getsalegetCookie('GETSALE_DEL');
 if (getsale_del && getsale_del == 'Y') {
-    (function(w, c) {
-        w[c] = w[c] || [];
-        w[c].push(function(getSale) {
-            getSale.event('del-from-cart');
-            console.log('del-from-cart');
-        });
-    })(window, 'getSaleCallbacks');
-    document.cookie = 'GETSALE_DEL=N; path=/;';
+(function(w, c) {
+    w[c] = w[c] || [];w[c].push(function(getSale) {
+        getSale.event('del-from-cart');
+        console.log('del-from-cart');
+    });
+})(window, 'getSaleCallbacks');
+document.cookie = 'GETSALE_DEL=N; path=/;';
 }
+
+var getsale_add = getsalegetCookie('GETSALE_ADD');
+if (getsale_add && getsale_add == 'Y') {
+(function(w, c) {
+    w[c] = w[c] || [];w[c].push(function(getSale) {
+        getSale.event('add-to-cart');
+        console.log('add-to-cart');
+    });
+})(window, 'getSaleCallbacks');
+document.cookie = 'GETSALE_ADD=N; path=/;';
+}
+
 });
 </script>
 ]]></add>
