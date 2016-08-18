@@ -36,7 +36,7 @@
             <search>
                 <![CDATA[var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').prop('value');]]></search>
             <add position="before" offset="1">
-                <![CDATA[(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('user-reg'); console.log('user-reg');});})(window, 'getSaleCallbacks');]]></add>
+                <![CDATA[document.cookie='GETSALE_REG=Y; path =/;';]]></add>
         </operation>
     </file>
     <file path="catalog/view/theme/*/template/product/product.tpl">
@@ -58,7 +58,7 @@
             <search>
                 <![CDATA[$data['button_upload'] = $this->language->get('button_upload');]]></search>
             <add position="before">
-                <![CDATA[$data['getsale_script'] = "<script>(function(w, c) {w[c] = w[c] || [];w[c].push(function(getSale) {getSale.event('user-reg'); console.log('user-reg');});})(window, 'getSaleCallbacks');</script>";]]></add>
+                <![CDATA[$data['getsale_script'] = "<script>document.cookie='GETSALE_REG=Y; path =/;';</script>";]]></add>
         </operation>
     </file>
 
@@ -121,6 +121,18 @@ if (getsale_add && getsale_add == 'Y') {
     });
 })(window, 'getSaleCallbacks');
 document.cookie = 'GETSALE_ADD=N; path=/;';
+}
+
+var getsale_reg = getsalegetCookie('GETSALE_REG');
+if (getsale_reg && getsale_reg == 'Y') {
+(function(w, c) {
+    w[c] = w[c] || [];
+    w[c].push(function(getSale) {
+        getSale.event('user-reg');
+        console.log('user-reg');
+    });
+})(window, 'getSaleCallbacks');
+document.cookie = 'GETSALE_REG=N; path=/;';
 }
 
 });
